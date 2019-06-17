@@ -8,7 +8,7 @@ from copy import deepcopy
 _filename = None
 _format = "%(asctime)-15s [%(levelname)s] [%(name)s] %(message)s"
 _datefmt = "%Y/%m/%d %H:%M:%S"
-_level = logging.INFO
+_level = logging.DEBUG
 
 if _filename:
     handlers = [logging.StreamHandler(sys.stdout), logging.FileHandler(_filename)]
@@ -42,38 +42,38 @@ COINS = {
         "WEIGHT": 1,
         "AMOUNT": 0
     },
-    "BCH": {
-        "WEIGHT": 1,
-        "AMOUNT": 0
-    },
-    "ETH": {
-        "WEIGHT": 1,
-        "AMOUNT": 0
-    },
-    "LTC": {
-        "WEIGHT": 1,
-        "AMOUNT": 0
-    },
-    "XRP": {
-        "WEIGHT": 1,
-        "AMOUNT": 0
-    },
-    "DASH": {
-        "WEIGHT": 1,
-        "AMOUNT": 0
-    },
-    "ETC": {
-        "WEIGHT": 1,
-        "AMOUNT": 0
-    },
-    "EOS": {
-        "WEIGHT": 1,
-        "AMOUNT": 0
-    },
-    "OMG": {
-        "WEIGHT": 1,
-        "AMOUNT": 0
-    }
+    # "BCH": {
+    #     "WEIGHT": 1,
+    #     "AMOUNT": 0
+    # },
+    # "ETH": {
+    #     "WEIGHT": 1,
+    #     "AMOUNT": 0
+    # },
+    # "LTC": {
+    #     "WEIGHT": 1,
+    #     "AMOUNT": 0
+    # },
+    # "XRP": {
+    #     "WEIGHT": 1,
+    #     "AMOUNT": 0
+    # },
+    # "DASH": {
+    #     "WEIGHT": 1,
+    #     "AMOUNT": 0
+    # },
+    # "ETC": {
+    #     "WEIGHT": 1,
+    #     "AMOUNT": 0
+    # },
+    # "EOS": {
+    #     "WEIGHT": 1,
+    #     "AMOUNT": 0
+    # },
+    # "OMG": {
+    #     "WEIGHT": 1,
+    #     "AMOUNT": 0
+    # }
 }
 
 # 用户当前USDT账户余额

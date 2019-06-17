@@ -45,7 +45,7 @@ def on_message(ws, message):
     else:
         save_data(msg_dict)
         logger.debug("收到消息: " + str(msg_dict))
-        kline_handler.handle_raw_message(msg_dict)
+        # kline_handler.handle_raw_message(msg_dict)
 
 
 def on_error(ws, error):
@@ -63,13 +63,21 @@ def on_close(ws):
 def on_open(ws):
     # 遍历settings中的货币对象
     for currency in settings.COINS.keys():
-        subscribe = "market.{0}{1}.kline.{2}".format(currency, settings.SYMBOL, settings.PERIOD).lower()
-        data = {
-            "sub": subscribe,
+        subscribe_kline = "market.{0}{1}.kline.{2}".format(currency, settings.SYMBOL, settings.PERIOD).lower()
+        data_kline = {
+            "sub": subscribe_kline,
             "id": currency
         }
         # 订阅K线图
-        send_message(ws, data)
+        send_message(ws, data_kline)
+
+        subscribe_depth = "market.{0}{1}.depth.step0".format(currency, settings.SYMBOL).lower()
+        data_depth = {
+            "sub": subscribe_depth,
+            "id": currency
+        }
+        # 订阅K线图
+        send_message(ws, data_depth)
 
 
 def start():
