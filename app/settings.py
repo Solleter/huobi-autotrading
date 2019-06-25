@@ -5,8 +5,9 @@ import logging
 # 日志配置文件
 from copy import deepcopy
 
-_filename = None
-_format = "%(asctime)-15s [%(levelname)s] [%(name)s] %(message)s"
+_filename = 'log.txt'
+# _format = "%(asctime)-15s [%(levelname)s] [%(name)s] %(message)s"
+_format = "%(asctime)-15s %(message)s"
 _datefmt = "%Y/%m/%d %H:%M:%S"
 _level = logging.DEBUG
 

@@ -12,6 +12,36 @@ import websocket
 logger = logging.getLogger(__name__)
 
 
+
+def process_kline_data(msg):
+    _ts = None
+    _id = None
+    _open = None
+    _close = None
+    _low = None
+    _high = None
+    _count = None
+    _amount = None
+    _vol = None
+    if 'ts' in msg:
+        _ts = msg['ts']
+    if 'tick' in msg:
+        tick = msg['tick']
+        _id = tick['id']
+        _amount = tick['amount']
+        _open = tick['open']
+        _close = tick['close']
+        _low = tick['low']
+        _high = tick['high']
+        _count = tick['count']
+        _vol = tick['vol']
+    log_str = 'ts:{} id:{} amount:{} open:{} close:{} low:{} high:{} count:{} vol:{}'.format(_ts, _id, _amount, _open, _close, _low, _high, _count, _vol)
+    logger.debug(log_str)
+
+
+
+
+
 ###
 # 本文件通过websocket与火币网实现通信
 ###
@@ -39,12 +69,14 @@ def on_message(ws, message):
             "pong": msg_dict['ping']
         }
         logger.debug("收到ping消息: " + str(msg_dict))
+        print("收到ping消息: " + str(msg_dict))
         send_message(ws, data)
     elif 'subbed' in msg_dict:
         logger.debug("收到订阅状态消息：" + str(msg_dict))
     else:
-        save_data(msg_dict)
-        logger.debug("收到消息: " + str(msg_dict))
+        process_kline_data(msg_dict)
+        # save_data(msg_dict)
+        # logger.debug("收到消息: " + str(msg_dict))
         # kline_handler.handle_raw_message(msg_dict)
 
 
@@ -54,8 +86,8 @@ def on_error(ws, error):
 
 
 def on_close(ws):
-    logger.info("已断开连接")
-    logger.info("等待5秒后重新尝试连接")
+    print("已断开连接")
+    print("等待5秒后重新尝试连接")
     time.sleep(5)
     start()
 
@@ -71,13 +103,13 @@ def on_open(ws):
         # 订阅K线图
         send_message(ws, data_kline)
 
-        subscribe_depth = "market.{0}{1}.depth.step0".format(currency, settings.SYMBOL).lower()
-        data_depth = {
-            "sub": subscribe_depth,
-            "id": currency
-        }
-        # 订阅K线图
-        send_message(ws, data_depth)
+        # subscribe_depth = "market.{0}{1}.depth.step0".format(currency, settings.SYMBOL).lower()
+        # data_depth = {
+        #     "sub": subscribe_depth,
+        #     "id": currency
+        # }
+        # # 订阅K线图
+        # send_message(ws, data_depth)
 
 
 def start():
